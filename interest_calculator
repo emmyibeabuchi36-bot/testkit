@@ -1,0 +1,36 @@
+principal = float(input("Enter the principal: "))
+
+currency = input("Enter currency (USD or NGN): ").upper()
+
+n = int(input("Enter number of times interest is compounded per year: "))
+
+rate = float(input("Enter interest rate (%): "))
+
+years = float(input("Enter loan duration (years): "))
+
+# Convert percentage to decimal
+r = rate / 100
+
+# Calculate total amount
+amount = principal * (1 + r / n) ** (n * years)
+
+# Calculate compound interest
+compound_interest = amount - principal
+
+# Convert everything to both currencies
+if currency == "USD":
+    principal_usd = principal
+    principal_ngn = principal * 1600
+else:
+    principal_ngn = principal
+    principal_usd = principal / 1600
+
+amount_usd = amount if currency == "USD" else amount / 1600
+amount_ngn = amount * 1600 if currency == "USD" else amount
+
+interest_usd = compound_interest if currency == "USD" else compound_interest / 1600
+interest_ngn = compound_interest * 1600 if currency == "USD" else compound_interest
+
+print("\n--- Interest Calculation ---")
+print(f"Compound Interest: ${interest_usd:,.2f} / NGN {interest_ngn:,.2f}")
+print(f"Amount to Pay Back: ${amount_usd:,.2f} / NGN {amount_ngn:,.2f}")
